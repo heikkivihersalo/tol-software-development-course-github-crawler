@@ -1,3 +1,6 @@
 .env
+.DS_Store
 repository_data.json
 project_data.json
+week2-practical-exercise.zip
+exercise-answers.pdf
