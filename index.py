@@ -22,18 +22,18 @@ HEADERS = {
     'Authorization': f'Bearer {TOKEN}'
 }
 
-API_BASE = 'https://api.github.com'
-ENDPOINT = 'repos'
-OWNER = 'boyter'
-REPOSITORY = 'scc'
-PAGE = 1
-PER_PAGE = 100
+API_BASE = 'https://api.github.com' # The base URL for the GitHub API
+ENDPOINT = 'repos' # The endpoint to get the information from
+OWNER = 'boyter' # The owner of the repository
+REPOSITORY = 'scc' # The repository to get the information from
+PAGE = 1 # Page to start from
+PER_PAGE = 100 # Maximum number of items per page
 
 # ======================== #
 # Helpers
 # ======================== #
 
-def crawl_pages_count(base_url, page, per_page):
+def crawl_pages_count(base_url: str, page: int, per_page: int) -> int:
     """ Get the total count of contributors
     :param url: The URL to get the contributors
     :param per_page: The number of contributors per page
@@ -60,7 +60,7 @@ def crawl_pages_count(base_url, page, per_page):
     # If there is only one page then return the count
     return len(response.json())
 
-def search_total_count(query):
+def search_total_count(query: str) -> int: 
     """ Get the total count of issues
     :param query: The query to search for issues
     :return: The total number of issues
