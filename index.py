@@ -60,12 +60,12 @@ def crawl_pages_count(base_url: str, page: int, per_page: int) -> int:
     # If there is only one page then return the count
     return len(response.json())
 
-def search_total_count(query: str) -> int: 
+def search_total_count(url: str, query: str) -> int: 
     """ Get the total count of issues
     :param query: The query to search for issues
     :return: The total number of issues
     """
-    url = f'https://api.github.com/search/issues?q=repo:{OWNER}/{REPOSITORY}+{query}&per_page=1&page=1'
+    url = f'{url}?q=repo:{OWNER}/{REPOSITORY}+{query}&per_page=1&page=1'
     response = requests.get(url, headers=HEADERS).json()
 
     return response['total_count']
@@ -77,7 +77,7 @@ def search_total_count(query: str) -> int:
 repo_url = f'{API_BASE}/{ENDPOINT}/{OWNER}/{REPOSITORY}'
 contributors_url = f'{repo_url}/contributors'
 commits_url = f'{repo_url}/commits'
-issues_url = f'{repo_url}/issues?q=type:issue+state:closed'
+issues_url = f'https://api.github.com/search/issues'
 
 # Get the repository information
 repository = requests.get(repo_url, headers=HEADERS).json()
@@ -90,7 +90,7 @@ project_information = {
     'contributors': crawl_pages_count(f'{contributors_url}', PAGE, PER_PAGE),
     'commits': crawl_pages_count(f'{commits_url}', PAGE, PER_PAGE),
     'open_issues': repository['open_issues'],
-    'closed_issues': search_total_count('type:issue+state:closed')
+    'closed_issues': search_total_count(issues_url, 'type:issue+state:closed')
 }
 
 # Print the information
