@@ -99,3 +99,7 @@ project_information = {
 
 # Print the information
 print(json.dumps(project_information, indent=4, sort_keys=False))
+
+# Save response as json
+with open('project_data.json', 'w') as f:
+    json.dump(project_information, f, indent=4)
