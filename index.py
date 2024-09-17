@@ -82,6 +82,10 @@ issues_url = f'https://api.github.com/search/issues'
 # Get the repository information
 repository = requests.get(repo_url, headers=HEADERS).json()
 
+# Save response as json
+with open('repository_data.json', 'w') as f:
+    json.dump(repository, f, indent=4)
+
 # Extract the information we need
 project_information = {
     'name': repository['name'],
